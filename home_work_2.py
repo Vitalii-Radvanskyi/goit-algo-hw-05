@@ -3,13 +3,14 @@ import re
 
 
 def generator_nambers(text: str):
-    numbers = re.findall(r'(?<= )\d+(?= )', text)
-    yield float(numbers)
+        numbers = re.findall(r"\d+(?:\.\d+)?", text)
+        for number in numbers:
+            yield float(number)
     
 
-def sum_profit(func : Callable):
+def sum_profit(func : Callable[[str],Iterable[float]], text: str):
     total = 0
-    for number in generator_nambers(text):
+    for number in func(text):
          total += number
     return total
          
