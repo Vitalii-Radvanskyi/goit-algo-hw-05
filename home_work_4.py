@@ -1,10 +1,36 @@
+def input_error_key(func):
+    def inner(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except KeyError:
+            return "Enter the argument for the command"
+    return inner
+
+def input_error_value(func):
+    def inner(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except ValueError:
+            return "Enter the argument for the command"
+    return inner
+
+def input_error_index(func):
+    def inner(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except IndexError:
+            return "Enter the argument for the command"
+    return inner
+
+
+@input_error_value
 def add_contact(args, contacts):
     if len(args) != 2:
         return "Invalid command."
     name, phone = args
     contacts[name] = phone
     return "Contact added."
-
+@input_error_index
 def change_contact(args, contacts):
     if len(args) != 2:
         return "Invalid command."
@@ -13,7 +39,7 @@ def change_contact(args, contacts):
         return "Contact not found."
     contacts[name] = new_phone
     return "Contact updated."
-
+@input_error_key
 def show_phon(args, contacts):
     if len(args) != 1:
         return "Invalid command."
@@ -21,6 +47,7 @@ def show_phon(args, contacts):
     if not name in contacts:
         return "Contact not found."
     return contacts[name]
+@input_error_key
 def show_all(contacts):
     if not contacts:
         return "No contacts seved."
