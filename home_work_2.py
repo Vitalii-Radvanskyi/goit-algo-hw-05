@@ -2,19 +2,19 @@ from typing import Callable
 import re
 
 
-def generator_nambers(text: str):
-        numbers = re.findall(r"\d+(?:\.\d+)?", text)
+def generator_numbers(text: str):
+        numbers = re.findall(r"(?<=\s)\d+(?:\.\d+)?(?=\s)", text)
         for number in numbers:
             yield float(number)
     
 
-def sum_profit(func : Callable[[str],Iterable[float]], text: str):
-    total = 0
+def sum_profit(text: str, func : Callable[[str],Iterable[float]]):
+    total = 0.0
     for number in func(text):
          total += number
     return total
          
 text = "Загальний дохід працівника складається з декількох частин: 1000.01 як основний дохід, доповнений додатковими надходженнями 27.45 і 324.00 доларів."
-total_income = sum_profit(generator_nambers, text)
+total_income = sum_profit(text, generator_numbers)
 print(f"Загальний дохід: {total_income}")
         
