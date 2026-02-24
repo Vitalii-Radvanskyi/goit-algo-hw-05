@@ -9,8 +9,6 @@ def input_error(func):
 
 @input_error
 def add_contact(args, contacts):
-    if len(args) != 2:
-        return "Invalid command."
     name, phone = args
     contacts[name] = phone
     return "Contact added."
@@ -18,8 +16,6 @@ def add_contact(args, contacts):
 
 @input_error
 def change_contact(args, contacts):
-    if len(args) != 2:
-        return "Invalid command."
     name, new_phone = args
     if not name in contacts:
         return "Contact not found."
@@ -29,8 +25,6 @@ def change_contact(args, contacts):
 
 @input_error
 def show_phon(args, contacts):
-    if len(args) != 1:
-        return "Invalid command."
     name = args[0]
     if not name in contacts:
         return "Contact not found."
